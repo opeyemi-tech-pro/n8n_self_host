@@ -1,16 +1,21 @@
-# Use the official n8n image
+# Use the version you want
 FROM n8nio/n8n:latest
 
-# Switch to root to perform installations
+# Switch to root to prepare the filesystem
 USER root
 
-# Install these specific community nodes
-# Navigate to the n8n directory to ensure npm installs them into the correct scope
-RUN cd /usr/local/lib/node_modules/n8n && \
+# Create a dedicated 'nodes' folder in the n8n user directory.
+# This folder is specifically checked by n8n for community nodes.
+RUN mkdir -p /home/node/.n8n/nodes && \
+    cd /home/node/.n8n/nodes && \
+    npm init -y && \
     npm install n8n-nodes-docx-converter \
                 @apify/n8n-nodes-apify \
                 n8n-nodes-waha \
                 n8n-nodes-docxtemplater
 
-# Switch back to the 'node' user for security best practices
+# Ensure the 'node' user owns these files so n8n can load them
+RUN chown -R node:node /home/node/.n8n
+
+# Switch back to the standard user
 USER node
