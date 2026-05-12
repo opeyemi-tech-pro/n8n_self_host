@@ -1,5 +1,5 @@
 # Use the official n8n image
-FROM n8nio/n8n:2.21.0
+FROM n8nio/n8n:2.19.3
 
 # Switch to root to perform installations
 USER root
