@@ -11,7 +11,7 @@ RUN mkdir -p /home/node/.n8n/nodes && \
     npm init -y && \
     npm install n8n-nodes-docx-converter \
                 @apify/n8n-nodes-apify \
-                n8n-nodes-waha \
+                @devlikeapro/n8n-nodes-waha \
                 n8n-nodes-docxtemplater
 
 # Ensure the 'node' user owns these files so n8n can load them
